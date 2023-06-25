@@ -1,20 +1,45 @@
-import React,{ useState,createContext} from "react";
+import React, { useState, createContext } from "react";
 
-export const userContext=createContext();
+export const userContext = createContext();
 
 
-export  function UserHandleContext (props) {
+export function UserHandleContext(props) {
 
-const [user,setUser]=useState([]);
+    const [user, setUser] = useState([]);
+    const [currentUser,setCurrentUser]=useState("")
 
-function addUser(newUser){
-setUser([...user,{...newUser,logStatus:true}])
-}
+    function addUser(newUser) {
+        setUser([...user, { ...newUser, logStatus: false }])
+    }
 
-return(
-    <userContext.Provider value={{...user,addUser}}>
-        {props.children}
-    </userContext.Provider>
-)
+
+    function login(userInfo) {
+        const updatedUser = user.map(x => {
+            if (x.userName === userInfo.userName) {
+                if (x.password === userInfo.password) {
+                    setCurrentUser(x);
+                    return { ...x, logStatus: true }
+                    
+                }else{
+                    return x;
+                }
+            } else{
+                return x
+            }
+        });
+        setUser(updatedUser);
+
+    }
+
+
+    function logout(){
+        setCurrentUser("")
+    }
+
+    return (
+        <userContext.Provider value={{ user, addUser, login,currentUser,logout }}>
+            {props.children}
+        </userContext.Provider>
+    )
 
 }

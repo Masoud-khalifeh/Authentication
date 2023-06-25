@@ -33,8 +33,8 @@ function submitHandler (evt){
                     <input type="text" name="email" id="email" value={user.email} onChange={changeHandler} />
                 </p>
                 <p>
-                    <label htmlFor="passWord1">Password : </label>
-                    <input type="password" name="password1" id="password1" value={user.password} onChange={changeHandler} />
+                    <label htmlFor="passWord">Password : </label>
+                    <input type="password" name="password" id="password" value={user.password} onChange={changeHandler} />
                 </p>
                 {/* <p>
                     <label htmlFor="passWord2" >Repeat Your Password : </label>
