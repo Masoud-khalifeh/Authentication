@@ -4,13 +4,14 @@ import { userContext } from './UserHandleContext';
 
 export function Home() {
     const sharedData = useContext(userContext);
+    
 
 
     return (
         <div>
-            {sharedData.currentUser ?
+            {sharedData.currentUser?
                 <div>
-                    <p>You are in</p>
+                    <p>You are in {sharedData.currentUser.userName}</p>
                     <p onClick={sharedData.logout}>Log Out</p>
                 </div>
                 :

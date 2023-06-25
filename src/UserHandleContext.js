@@ -1,43 +1,51 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 export const userContext = createContext();
 
 
 export function UserHandleContext(props) {
 
-    const [user, setUser] = useState([]);
-    const [currentUser,setCurrentUser]=useState("")
+    const [users, setUsers] = useState(JSON.parse(window.localStorage.getItem("users")));
+    const [currentUser, setCurrentUser] = useState(JSON.parse(window.localStorage.getItem("currentUser")))
 
     function addUser(newUser) {
-        setUser([...user, { ...newUser, logStatus: false }])
+        setUsers([...users, { ...newUser, logStatus: true }]);
     }
+
+    useEffect(() => {
+        window.localStorage.setItem("users", JSON.stringify(users))
+    }, [users]);
+    
+    useEffect(() => {
+        window.localStorage.setItem("currentUser", JSON.stringify(currentUser))
+    }, [currentUser])
 
 
     function login(userInfo) {
-        const updatedUser = user.map(x => {
+        const updatedUser = users.map(x => {
             if (x.userName === userInfo.userName) {
                 if (x.password === userInfo.password) {
                     setCurrentUser(x);
                     return { ...x, logStatus: true }
-                    
-                }else{
+
+                } else {
                     return x;
                 }
-            } else{
+            } else {
                 return x
             }
         });
-        setUser(updatedUser);
+        setUsers(updatedUser);
 
     }
 
 
-    function logout(){
+    function logout() {
         setCurrentUser("")
     }
 
     return (
-        <userContext.Provider value={{ user, addUser, login,currentUser,logout }}>
+        <userContext.Provider value={{ users, addUser, login, currentUser, logout }}>
             {props.children}
         </userContext.Provider>
     )
