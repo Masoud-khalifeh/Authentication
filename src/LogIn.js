@@ -1,11 +1,17 @@
 import React, { useState, useContext } from "react";
 import { userContext } from './UserHandleContext';
+import { Link,useNavigate } from "react-router-dom";
 
 export function LogIn() {
     const [user, setUser] = useState([]);
 
-    const sharedData = useContext(userContext)
+    const sharedData = useContext(userContext);
 
+    const navigate=useNavigate();
+
+    if(sharedData.currentUser){
+        navigate("/") 
+    }
 
     function changeHandler(evt) {
         setUser({
@@ -17,7 +23,8 @@ export function LogIn() {
     function submitHandler(evt) {
         evt.preventDefault();
         sharedData.login(user);
-        setUser({ userName: '', password: '' })
+        setUser({ userName: '', password: '' });
+              
     }
 
     return (
@@ -30,6 +37,7 @@ export function LogIn() {
                 <button>Log In</button>
 
             </form>
+            <p>Not a Member? <Link to="/signin">Sign In</Link></p>
         </div>
     )
 }

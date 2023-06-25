@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { userContext } from './UserHandleContext';
+import { Link } from "react-router-dom";
 
 
 export function Home() {
@@ -12,12 +13,12 @@ export function Home() {
             {sharedData.currentUser?
                 <div>
                     <p>You are in {sharedData.currentUser.userName}</p>
-                    <p onClick={sharedData.logout}>Log Out</p>
+                    <a onClick={sharedData.logout}>Log Out</a>
                 </div>
                 :
                 <div>
                  <p>You are out</p>
-                    <p>Log in</p>
+                 <Link to="/login" >lOGIN</Link>
                 </div>
             }
            
