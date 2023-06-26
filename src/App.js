@@ -5,6 +5,7 @@ import { LogIn } from './LogIn';
 import { SignIn } from './SignIn';
 import { UserHandleContext } from './UserHandleContext';
 import { Home } from './Home';
+import {Dashboard} from './Dashboard'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </UserHandleContext>
     </div>

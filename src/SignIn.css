@@ -1,4 +1,4 @@
-.login {
+.SignIn {
     width: 50%;
     height: 50%;
     margin: auto;
@@ -7,16 +7,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
-.login .error {
+.SignIn .error {
     width: 20rem;
     height:10%;
     margin-bottom: 4rem;
    
 }
 
-.login input {
+
+.SignIn input {
     width: 19rem;
     height: 2rem;
     color: white;
@@ -26,7 +28,7 @@
 
 }
 
-.login button {
+.SignIn button {
     background-color: white;
     color: #2148c0;
     border: none;
@@ -35,7 +37,7 @@
     margin-top: 1rem
 }
 
-.login p {
+.SignIn p {
     align-self: flex-end;
     color: white
 }

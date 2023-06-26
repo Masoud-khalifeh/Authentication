@@ -5,6 +5,7 @@ export const userContext = createContext();
 export function UserHandleContext(props) {
     const [users, setUsers] = useState(JSON.parse(window.localStorage.getItem("users")));
     const [currentUser, setCurrentUser] = useState(JSON.parse(window.localStorage.getItem("currentUser")));
+    const [errorMessage, setErrorMessage] = useState("");
 
 
     let timeoutId; // Declare the timeout identifier variable
@@ -15,13 +16,16 @@ export function UserHandleContext(props) {
             clearTimeout(timeoutId);
         }
 
-        // Start a new timeout
+
         timeoutId = setTimeout(() => {
-            // Timeout logic
             logout()
-        }, 300000); // 5 seconds
+        }, 300000);
     }
 
+
+    function resetErrorMsg(text) {
+        setErrorMessage(text)
+    }
 
 
 
@@ -30,8 +34,19 @@ export function UserHandleContext(props) {
 
 
     function addUser(newUser) {
-        setUsers([...users, { ...newUser, logStatus: true }]);
-        setCurrentUser(newUser);
+        if (users) {
+            const foundUser = users.find((item) => item.email === newUser.email);
+            if (foundUser) {
+                setErrorMessage("This Email Address Already Exists!")
+            } else {
+                setUsers([...users, { ...newUser, logStatus: true }]);
+                setCurrentUser(newUser);
+            }
+        } else {
+            setUsers([{ ...newUser, logStatus: true }]);
+            setCurrentUser(newUser);
+        }
+
     }
 
     useEffect(() => {
@@ -45,19 +60,22 @@ export function UserHandleContext(props) {
 
 
     function login(userInfo) {
-        const updatedUser = users.map((x) => {
-            if (x.userName === userInfo.userName) {
-                if (x.password === userInfo.password) {
-                    setCurrentUser({ ...x, logStatus: true });
-                    return { ...x, logStatus: true };
+        if (users) {
+            const updatedUser = users.map((x) => {
+                if (x.email === userInfo.email) {
+                    if (x.password === userInfo.password) {
+                        setCurrentUser({ ...x, logStatus: true });
+                        return { ...x, logStatus: true };
+                    } else {
+                        return x;
+                    }
                 } else {
                     return x;
                 }
-            } else {
-                return x;
-            }
-        });
-        setUsers(updatedUser);
+            });
+            setUsers(updatedUser);
+        }
+
     }
 
     function logout() {
@@ -65,7 +83,7 @@ export function UserHandleContext(props) {
     }
 
     return (
-        <userContext.Provider value={{ users, addUser, login, currentUser, logout }}>
+        <userContext.Provider value={{ users, addUser, login, currentUser, logout, errorMessage, resetErrorMsg }}>
             {props.children}
         </userContext.Provider>
     );
