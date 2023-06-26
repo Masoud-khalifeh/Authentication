@@ -1,17 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { userContext } from './UserHandleContext';
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function LogIn() {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({ userName: '', password: '' });
+    const [changeHappen, setChangeHappen] = useState(false)
 
     const sharedData = useContext(userContext);
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    if(sharedData.currentUser){
-        navigate("/") 
-    }
+    //after submitting the form, it checks if the login was successful,then navigate to "Home"
+    useEffect(() => {
+        if (sharedData.currentUser) {
+            navigate("/")
+        }
+    }, [changeHappen])
+
+
 
     function changeHandler(evt) {
         setUser({
@@ -24,7 +30,7 @@ export function LogIn() {
         evt.preventDefault();
         sharedData.login(user);
         setUser({ userName: '', password: '' });
-              
+        setChangeHappen(!changeHappen)
     }
 
     return (
