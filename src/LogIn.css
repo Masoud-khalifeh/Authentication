@@ -1,0 +1,40 @@
+.login {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.login input {
+    width: 19rem;
+    height: 2rem;
+    color: white;
+    background-color: #2148c0;
+    border: white 0.05rem solid;
+    padding-left: 1rem;
+
+}
+
+.login button {
+    background-color: white;
+    color: #2148c0;
+    border: none;
+    width: 20rem;
+    height: 2rem;
+    margin-top: 1rem
+}
+
+.login p {
+    align-self: flex-end;
+    color: white
+}
+
+.linkStyle {
+    color: white;
+}

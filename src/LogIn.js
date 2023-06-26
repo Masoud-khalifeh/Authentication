@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { userContext } from './UserHandleContext';
 import { Link, useNavigate } from "react-router-dom";
+import './LogIn.css';
 
 export function LogIn() {
     const [user, setUser] = useState({ userName: '', password: '' });
@@ -34,16 +35,19 @@ export function LogIn() {
     }
 
     return (
-        <div>
+        <div className="login">
             <form onSubmit={submitHandler}>
-                <label htmlFor="userName">User Name : </label>
-                <input type="text" name="userName" id="userName" value={user.userName} onChange={changeHandler} />
-                <label htmlFor="passWord">Password : </label>
-                <input type="password" name="password" id="password" value={user.password} onChange={changeHandler} />
-                <button>Log In</button>
+                <p>
+                    <input type="text" name="userName" id="userName" value={user.userName} onChange={changeHandler} placeholder="USERNAME"/>
+                </p>
+                <p>
+                    <input type="password" name="password" id="password" value={user.password} onChange={changeHandler}  placeholder="PASSWORD"/>
+                </p>
 
+                <button>LOGIN</button>
+                <p>Not a Member? <Link to="/signin" className="linkStyle">Sign In</Link ></p>
             </form>
-            <p>Not a Member? <Link to="/signin">Sign In</Link></p>
+            
         </div>
     )
 }
